@@ -1054,7 +1054,13 @@ var FULL=[["🃏 Collectible cards",[["Other Cards",[["hidden-package-004","Card
 /* ======================= STATE ======================= */
 var SKEY="gta6guide_public_v1",st={t:0,s:{}};
 try{var emb=JSON.parse(document.getElementById("state").textContent);if(emb&&emb.s)st=emb;}catch(e){}
-try{var loc=JSON.parse(localStorage.getItem(SKEY)||"null");if(loc&&loc.s&&loc.t>st.t)st=loc;}catch(e){}
+var PENDING=false;
+try{var loc=JSON.parse(localStorage.getItem(SKEY)||"null");var hs0=JSON.parse(localStorage.getItem(SKEY+"_hist")||"[]");
+var newer=hs0.filter(function(e){return e&&e.k&&e.t>st.t});
+if(newer.length){newer.sort(function(a,b){return a.t-b.t}).forEach(function(e){if(e.v)st.s[e.k]=1;else delete st.s[e.k]});st.t=Date.now();PENDING=true}
+else if(loc&&loc.s&&loc.t>st.t){st=loc;PENDING=true}
+if(PENDING){var lastTry=+(localStorage.getItem(SKEY+"_retry")||0);if(Date.now()-lastTry<15000)PENDING=false;}
+localStorage.setItem(SKEY,JSON.stringify(st));}catch(e){}
 var ART=null,pubTimer=null,syncMsg="Your progress is saved in this browser on this device";
 function isOn(k){return !!st.s[k]}
 function setK(k,v,noLog){var was=!!st.s[k];if(!noLog&&was!==!!v)hLog({k:k,v:v?1:0});if(v)st.s[k]=1;else delete st.s[k];st.t=Date.now();try{localStorage.setItem(SKEY,JSON.stringify(st))}catch(e){}schedulePub();renderHead();}
@@ -1066,7 +1072,7 @@ function buildDoc(){
 function schedulePub(){if(!ART)return;clearTimeout(pubTimer);syncMsg="Saving…";renderSync();pubTimer=setTimeout(function(){
   ART.publish(buildDoc()).then(function(){syncMsg="✓ Saved & synced";renderSync();}).catch(function(e){syncMsg="Saved on this device only";renderSync();});
 },2500);}
-if(false&&window.claude&&window.claude.use){window.claude.use("artifact").then(function(a){if(a){ART=a;syncMsg="✓ Synced across your devices";renderSync();}}).catch(function(){});}
+if(false&&window.claude&&window.claude.use){window.claude.use("artifact").then(function(a){if(a){ART=a;syncMsg="✓ Synced across your devices";renderSync();if(PENDING){try{localStorage.setItem(SKEY+"_retry",String(Date.now()))}catch(e){}schedulePub();}}}).catch(function(){});}
 
 /* ======================= HELPERS ======================= */
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
