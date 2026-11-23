@@ -32,8 +32,8 @@ box.onclick=function(e){if(e.target===box){box.hidden=true;return}var tb=e.targe
 document.getElementById("donCopy").onclick=function(){var el=document.querySelector(".dpane:not([hidden]) .daddr"),a=el.textContent,b=this;
 function ok(){b.textContent=t.copied;setTimeout(function(){b.textContent=t.copy},1800)}
 if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(a).then(ok,function(){})}else{var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);try{document.execCommand("copy");ok()}catch(e){}}};})();</script>
-<script>(function(){var h=location.hostname||"";if(h==="gtaplatinum.github.io"||/(^|\.)claude(usercontent)?\.(ai|com)$/.test(h)||h===""||h==="x.test")return;
+<script>(function(){var h=location.hostname||"";if(h==="gta6platinum.github.io"||/(^|\.)claude(usercontent)?\.(ai|com)$/.test(h)||h===""||h==="x.test")return;
 var L="en";try{L=localStorage.getItem("gta6lang")||"en"}catch(e){}
-var M={en:"⚠️ Unofficial copy. The official GTA Guide to Platinum is only at gtaplatinum.github.io — don't donate here.",ar:"⚠️ نسخة غير رسمية. دليل GTA Guide to Platinum الرسمي فقط على gtaplatinum.github.io — لا تتبرع هنا.",es:"⚠️ Copia no oficial. La guía oficial está solo en gtaplatinum.github.io — no dones aquí."};
+var M={en:"⚠️ Unofficial copy. The official GTA Guide to Platinum is only at gta6platinum.github.io — don't donate here.",ar:"⚠️ نسخة غير رسمية. دليل GTA Guide to Platinum الرسمي فقط على gta6platinum.github.io — لا تتبرع هنا.",es:"⚠️ Copia no oficial. La guía oficial está solo en gta6platinum.github.io — no dones aquí."};
 var d=document.getElementById("don");if(d)d.remove();
-var b=document.createElement("a");b.href="https://gtaplatinum.github.io/";b.textContent=M[L]||M.en;b.style.cssText="position:fixed;top:0;left:0;right:0;z-index:99;background:#ff5a5a;color:#fff;padding:10px;text-align:center;font:700 14px Inter,Tajawal,sans-serif;text-decoration:none";document.body.appendChild(b)})();</script>
+var b=document.createElement("a");b.href="https://gta6platinum.github.io/";b.textContent=M[L]||M.en;b.style.cssText="position:fixed;top:0;left:0;right:0;z-index:99;background:#ff5a5a;color:#fff;padding:10px;text-align:center;font:700 14px Inter,Tajawal,sans-serif;text-decoration:none";document.body.appendChild(b)})();</script>
