@@ -20,9 +20,9 @@
 #donCopy{margin-top:10px;background:var(--teal);color:#0d0716;border:0;border-radius:10px;padding:10px 18px;font-weight:700;cursor:pointer}
 .dcard .dwarn{color:var(--red);font-size:12.5px}
 </style>
-<script>(function(){var S={en:{btn:"Support",title:"Support the guide ☕",sub:"Free for everyone. If it helped you, a small tip keeps it updated.",copy:"Copy address",copied:"Copied ✓",warn:"Send USDT only on the network you picked above. Wrong network = lost funds."},
-ar:{btn:"ادعمني",title:"ادعم الدليل ☕",sub:"الدليل مجاني للجميع. إذا فادك، دعمك البسيط يخليه يتحدث باستمرار.",copy:"انسخ العنوان",copied:"تم النسخ ✓",warn:"أرسل USDT على نفس الشبكة اللي اخترتها فوق بس. شبكة غلط = المبلغ يضيع."},
-es:{btn:"Apoyar",title:"Apoya la guía ☕",sub:"Gratis para todos. Si te ayudó, una pequeña propina la mantiene actualizada.",copy:"Copiar dirección",copied:"Copiado ✓",warn:"Envía USDT solo por la red que elegiste arriba. Red equivocada = fondos perdidos."}};
+<script>(function(){var S={en:{btn:"Donation",title:"Donation ☕",sub:"Free for everyone. If it helped you, a small tip keeps it updated.",copy:"Copy address",copied:"Copied ✓",warn:"Send USDT only on the network you picked above. Wrong network = lost funds."},
+ar:{btn:"Donation",title:"Donation ☕",sub:"الدليل مجاني للجميع. إذا فادك، دعمك البسيط يخليه يتحدث باستمرار.",copy:"انسخ العنوان",copied:"تم النسخ ✓",warn:"أرسل USDT على نفس الشبكة اللي اخترتها فوق بس. شبكة غلط = المبلغ يضيع."},
+es:{btn:"Donación",title:"Donación ☕",sub:"Gratis para todos. Si te ayudó, una pequeña propina la mantiene actualizada.",copy:"Copiar dirección",copied:"Copiado ✓",warn:"Envía USDT solo por la red que elegiste arriba. Red equivocada = fondos perdidos."}};
 var L="en";try{L=localStorage.getItem("gta6lang")||"";if(!L){var m=/gta6lang=(\w+)/.exec(window.name||"");L=m?m[1]:"en"}}catch(e){}if(!S[L])L="en";var t=S[L];
 document.querySelectorAll("#don [data-t]").forEach(function(e){e.textContent=t[e.getAttribute("data-t")]});
 var box=document.getElementById("donBox");
