@@ -28,3 +28,15 @@ for k,(a,e) in FT.items():
     for kk in (k,k.strip()): DT['ar'][kk]=a if kk==k else a.strip(); DT['es'][kk]=e if kk==k else e.strip()
 s=s[:i]+json.dumps(DT,ensure_ascii=False,separators=(',',':')).replace('</','<\\/')+s[j:]
 open('index.html','w').write(s)
+
+# --- share preview / SEO (public only) ---
+s=open('index.html').read()
+meta=('<meta name="description" content="Free GTA 6 platinum guide: every trophy, collectible, card, WAiNK spot, code and car, with a checklist that saves your progress. English, Arabic and Spanish.">'
+ '<link rel="canonical" href="https://gta6platinum.github.io/">'
+ '<meta property="og:type" content="website"><meta property="og:url" content="https://gta6platinum.github.io/">'
+ '<meta property="og:title" content="GTA Guide to Platinum"><meta property="og:description" content="Every GTA 6 trophy, collectible, code and car in one free checklist — English · العربية · Español">'
+ '<meta property="og:image" content="https://gta6platinum.github.io/og.png"><meta name="twitter:card" content="summary_large_image">'
+ '<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%8F%86%3C/text%3E%3C/svg%3E">')
+if 'og:image' not in s:
+    s=s.replace('<title>GTA Guide to Platinum</title>','<title>GTA Guide to Platinum</title>'+meta,1)
+open('index.html','w').write(s)
