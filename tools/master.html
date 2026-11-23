@@ -1259,7 +1259,7 @@ function vCh2(){
   else{
     h+='<div class="box warn"><h2>'+T("⚠️ Before you move on")+'</h2><div class="d" style="color:#f3d6e4">'+esc(T(CHAPW[CHAP]))+'</div></div>';
     if(CHAP==="2"){
-      h+='<div class="box"><h2>'+T("✅ Chapter checklist")+'</h2><div class="links"><a target="_blank" rel="noopener" href="'+CH2VID+'">🎬 Video: 5 things to do before finishing Chapter 2</a></div>'+CH2.map(function(c,i){var l=CH2L[i];return row("h"+i,c[0],c[1],l?glink(l,l.charAt(0)==="?"?'(all ranges)':''):'')}).join("")+'</div>';
+      h+='<div class="box"><h2>'+T("✅ Chapter checklist")+'</h2><div class="links"><a target="_blank" rel="noopener" href="'+CH2VID+'">🎬 Video: 5 things to do before finishing Chapter 2</a></div>'+CH2.map(function(c,i){var l=CH2L[i];var ex=l?glink(l,l.charAt(0)==="?"?'(all ranges)':''):'';if(i===5)ex='<div class="links">'+[7,17,62,95,96,103,117,123,124,4].map(function(ci){var cd=CARDS[ci],g=(GTL["c"+ci]||"").replace("*","");return '<a target="_blank" rel="noopener" href="https://www.gtabase.com/gta-6/map/'+(g?'#'+g:'')+'">'+(isOn("c"+ci)?'✅ ':'🗺️ ')+esc(cd[1])+'</a>'}).join("")+'</div>';return row("h"+i,c[0],c[1],ex)}).join("")+'</div>';
     } else {
       h+='<div class="box"><h2>'+T("✅ Chapter checklist")+'</h2>'+CHAPI[CHAP].map(function(c,i){return row("p"+CHAP+"_"+i,esc(T(c[0])),esc(T(c[1])),c[2]?glink(c[2]):'')}).join("")+'</div>';
     }
