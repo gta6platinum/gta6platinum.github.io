@@ -89,6 +89,8 @@ SIMPLE = [
      "All luxury watches in GTA 6 and where to find them — several are inside safes or are key valuables in robberies like Hit Kingpin Bowling."),
     ("hidden-packages", "Luxury watches, treasure & hidden items", "Hidden Package", "Hidden Package Locations",
      "Every hidden package in GTA 6, each with a map pin so you can grab them in order."),
+    ("cocaine-flamingos", "Luxury watches, treasure & hidden items", "Cocaine Flamingos", "Cocaine Flamingo Locations",
+     "Every mapped cocaine flamingo in GTA 6. Shoot the ones with a black-and-white beak to get the cocaine inside — 100 of the 125 count for 100% completion, and 50 unlock the Inflatable Flamingo cheat."),
     ("scoop-containers", "Luxury watches, treasure & hidden items", "SCOOP Containers", "SCOOP Container Locations",
      "All SCOOP containers in GTA 6 with exact map pins."),
     ("unique-weapons", "Unique weapons", "Unique Weapons", "Unique Weapon Locations",
