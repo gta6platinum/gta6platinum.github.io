@@ -40,3 +40,9 @@ meta=('<meta name="description" content="Free GTA 6 platinum guide: every trophy
 if 'og:image' not in s:
     s=s.replace('<title>GTA Guide to Platinum</title>','<title>GTA Guide to Platinum</title>'+meta,1)
 open('index.html','w').write(s)
+# --- static crawlable links to the per-collectible guide pages (tools/make_seo.py) ---
+import subprocess,sys
+subprocess.run([sys.executable,'tools/make_seo.py'],check=True,stdout=subprocess.DEVNULL)
+G=[("meteorites","Meteorites"),("collectible-cards","Cards"),("luxury-watches","Luxury watches"),("unique-weapons","Unique weapons"),("hidden-packages","Hidden packages"),("waink","WAiNK"),("missables","Missables"),("trophies","Trophies"),("story-missions","Story missions"),("standout-vehicles","Standout vehicles"),("garages","Garages"),("basketball-hoops","Basketball hoops"),("guides","All guides")]
+nav='<nav id="seoGuides" style="max-width:860px;margin:0 auto;padding:8px 16px 120px;font:14px/1.9 Overpass,system-ui,sans-serif;color:#8b98a5">📚 GTA 6 location guides: '+' · '.join('<a style="color:#f2a93b" href="/%s/">%s</a>'%(a,b) for a,b in G)+'</nav>'
+s=open('index.html').read();i=s.rindex('</body>');s=s[:i]+nav+'\n'+s[i:];open('index.html','w').write(s)
