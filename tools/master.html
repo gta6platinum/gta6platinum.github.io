@@ -259,6 +259,8 @@ footer{color:var(--mute)}
 .lbb button{width:44px;height:44px;border-radius:10px;border:2px solid #00e5ff;background:#120634;color:#fff;font:700 22px/1 sans-serif;cursor:pointer}
 .lbo{color:#9ef7ff;font-size:13px;padding:0 8px;text-decoration:none}
 .thumb img{cursor:zoom-in}
+
+.gmpc,.gmpin span,.gmdot{color:#111!important}
 </style>
 </head>
 <body>
@@ -1328,7 +1330,7 @@ var GMMk=null;
 function gmMk(){if(GMMk)return GMMk;GMMk=L.CircleMarker.extend({_updatePath:function(){var r=this._renderer;if(!r._drawing||this._empty())return;var p=this._point,c=r._ctx,R=this._radius,o=this.options,col=o.done?"#8d8d8d":o.col;c.save();c.globalAlpha=o.done?.5:1;
  if(R<6){c.beginPath();c.arc(p.x,p.y,R,0,6.2832);c.fillStyle=col;c.fill();c.lineWidth=1.5;c.strokeStyle="#fff";c.stroke();c.restore();return}
  c.shadowColor="rgba(0,0,0,.45)";c.shadowBlur=5;c.shadowOffsetY=1.5;c.beginPath();c.arc(p.x,p.y,R,0,6.2832);c.fillStyle=col;c.fill();c.shadowColor="transparent";c.shadowBlur=0;c.shadowOffsetY=0;c.lineWidth=2.4;c.strokeStyle="#fff";c.stroke();
- var ps=gmPaths(o.ic),s=R*1.15;if(ps){c.translate(p.x-s/2,p.y-s/2);c.scale(s/24,s/24);c.strokeStyle="#fff";c.fillStyle="#fff";c.lineWidth=2.4;c.lineCap="round";c.lineJoin="round";ps.forEach(function(q){c.fillStyle=q[2]||"#fff";if(q[1])c.fill(q[0]);if(q[3]!=="none"){c.strokeStyle=q[3]||"#fff";c.lineWidth=q[4]||2.4;c.stroke(q[0])}})}else{c.fillStyle="#fff";c.font=Math.round(R*1.1)+"px sans-serif";c.textAlign="center";c.textBaseline="middle";c.fillText(o.ic,p.x,p.y+1)}c.restore()}});return GMMk}
+ var ps=gmPaths(o.ic),s=R*1.15;if(ps){c.translate(p.x-s/2,p.y-s/2);c.scale(s/24,s/24);c.strokeStyle="#fff";c.fillStyle="#fff";c.lineWidth=2.4;c.lineCap="round";c.lineJoin="round";ps.forEach(function(q){c.fillStyle=q[2]||"#111";if(q[1])c.fill(q[0]);if(q[3]!=="none"){c.strokeStyle=q[3]||"#111";c.lineWidth=q[4]||2.4;c.stroke(q[0])}})}else{c.fillStyle="#fff";c.font=Math.round(R*1.1)+"px sans-serif";c.textAlign="center";c.textBaseline="middle";c.fillText(o.ic,p.x,p.y+1)}c.restore()}});return GMMk}
 function gmRad(z){return z<2.5?4.5:z<3.5?9:z<4.5?11.5:14}
 function gmLayer(){var m=GM.map;if(!m||!GM.vis)return;var z=m.getZoom(),R=gmRad(z);if(GM.lay&&GM.layR===R&&GM.layV===GM.vis)return;if(GM.lay)m.removeLayer(GM.lay);
  if(!GM.cv)GM.cv=L.canvas({padding:.6,tolerance:6});var Mk=gmMk(),lay=L.layerGroup();
