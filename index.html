@@ -1243,7 +1243,7 @@ function gmInfo(){if(GM.info)return GM.info;var I={},P=GM.pins||{};function add(
  ITEMS.forEach(function(it){add(it.k,gmIcon((P[it.k]||[])[2],"",it.ic,it.ic==="🃏"?"🃏":""),strip(it.title),strip(it.desc))});
  FULL.forEach(function(g){var ic0=g[0].split(" ")[0];g[1].forEach(function(c){c[1].forEach(function(it){add("z"+it[0],gmIcon(it[0],c[0],ic0,g[0]),it[1],T(c[0])+(it[2]?" — "+T(it[2]):""))})})});
  CARS.forEach(function(c,i){add("v"+i,"🏎️",c[0],c[1])});GM.info=I;return I}
-function gmRewrite(root){if(!root)return;root.querySelectorAll('a[href*="gtabase.com/gta-6/map/#"]').forEach(function(a){var g=a.getAttribute("href").split("#")[1];if(!PINGID[g])return;a.setAttribute("href","#gmap");a.removeAttribute("target");a.setAttribute("data-pin",g);a.textContent="🗺️ "+T("On our map")})}
+function gmRewrite(root){if(!root)return;root.querySelectorAll('a[href*="gtabase.com/gta-6/map/#"]').forEach(function(a){var g=a.getAttribute("href").split("#")[1];if(!PINGID[g])return;a.setAttribute("href","#gmap");a.removeAttribute("target");a.setAttribute("data-pin",g);if(!a.classList.contains("thumb"))a.textContent="🗺️ "+T("On our map")})}
 document.addEventListener("click",function(e){var a=e.target.closest("a[data-pin]");if(!a)return;e.preventDefault();GM.focus=a.getAttribute("data-pin");if(cur==="gmap"){gmDraw()}else go("gmap")});
 function vGMap(){var tb=[["in","＋","Zoom in"],["out","－","Zoom out"],["home","🏠","Whole map"],["fs","⛶","Full screen"]].concat(GMPUB?[["style",GM.style==="day"?"🌙":"☀️","Day / night map"]]:[]).concat([["ruler","📏","Measure distance"],["pin","📌","Add my pin"],["panel","☰","Layers"]]);
  return '<div class="gmwrap" id="gmwrap"><div id="gmap"><div class="d" style="padding:20px">'+esc(T("Loading map…"))+'</div></div>'
