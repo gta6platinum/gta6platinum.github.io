@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GTA Guide to Platinum</title><meta name="description" content="Free GTA 6 platinum guide: every trophy, collectible, card, WAiNK spot, code and car, with a checklist that saves your progress. English, Arabic and Spanish."><link rel="canonical" href="https://gta6platinum.github.io/"><meta property="og:type" content="website"><meta property="og:url" content="https://gta6platinum.github.io/"><meta property="og:title" content="GTA Guide to Platinum"><meta property="og:description" content="Every GTA 6 trophy, collectible, code and car in one free checklist — English · العربية · Español"><meta property="og:image" content="https://gta6platinum.github.io/og.png"><meta name="twitter:card" content="summary_large_image"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%8F%86%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;800&family=Overpass+Mono:wght@600&family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;800&family=Overpass+Mono:wght@600&family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=Monoton&family=Tajawal:wght@400;700;900&display=swap">
 <style id="style">
 :root{--bg:#0d0716;--card:#1a1027;--card2:#22142f;--line:#3a2550;--pink:#ff3d9a;--teal:#22e1d6;--gold:#ffc94d;--txt:#f3ecfa;--mute:#a993bf;--red:#ff5a5a;--green:#3ee38b}
 *{box-sizing:border-box}
@@ -195,6 +195,62 @@ details>summary::before{color:var(--amber)}
 :focus-visible{outline:2px solid var(--amber);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 details.sub{margin:8px 0;border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.015)}details.sub>summary{padding:10px 12px;font-weight:600;cursor:pointer}details.sub[open]>summary{border-bottom:1px solid var(--line)}.subin{padding:0 10px 6px}#vis:empty{display:none}#vis{color:var(--amber);font-weight:600}.thumb{display:flex;align-items:flex-end;gap:8px;margin:6px 0 2px;text-decoration:none;color:var(--mute);font-size:12px}.thumb img{width:132px;aspect-ratio:16/9;object-fit:cover;border-radius:4px;border:1px solid var(--line);background:#0c1117;flex:none}
+
+/* ── Neon Vice theme (design 1) ──────────────────────────────
+   synthwave night: magenta grid floor + striped sun fixed behind
+   everything, cyan/magenta/gold neon edges, cards lift in 3D. */
+:root{--bg:#0b0221;--card:#160841ee;--card2:#12063a;--line:#3d1a7a;--pink:#ff2bd6;--teal:#00e5ff;--gold:#ffd23f;--txt:#f6e8ff;--mute:#b9a6e6;--red:#ff4d6d;--green:#3cffb0;--sign:#ff2bd6;--amber:#ffd23f}
+html{background:#0b0221}
+html,body{font-family:Tajawal,Overpass,system-ui,sans-serif;color:var(--txt)}
+[dir=rtl] body,[dir=rtl] html{font-family:Tajawal,"IBM Plex Sans Arabic",system-ui,sans-serif}
+body{background:transparent;position:relative}
+body::before{content:"";position:fixed;left:-30%;right:-30%;bottom:-60px;height:46vh;z-index:-1;pointer-events:none;transform:perspective(420px) rotateX(62deg);transform-origin:bottom;background-image:linear-gradient(#ff2bd6 2px,transparent 2px),linear-gradient(90deg,#ff2bd6 2px,transparent 2px);background-size:60px 60px;opacity:.38;-webkit-mask-image:linear-gradient(transparent,#000 35%);mask-image:linear-gradient(transparent,#000 35%)}
+body::after{content:"";position:fixed;top:12vh;inset-inline-end:6vw;width:min(34vw,260px);aspect-ratio:1;border-radius:50%;z-index:-2;pointer-events:none;background:repeating-linear-gradient(180deg,#ffd23f 0 16px,#ff2bd6 16px 22px);box-shadow:0 0 90px #ff2bd6;opacity:.55}
+a{color:var(--teal)}a:hover{color:#fff}
+header{background:linear-gradient(180deg,#0b0221f2,#0b0221c0)!important;border-bottom:2px solid var(--pink);box-shadow:0 0 24px #ff2bd655;backdrop-filter:blur(6px)}
+h1{font-family:Monoton,Tajawal,sans-serif;font-weight:400;font-size:clamp(20px,4vw,34px);letter-spacing:1px;color:#fff;background:none;-webkit-background-clip:initial;background-clip:initial;text-shadow:0 0 6px #ff2bd6,0 0 22px #ff2bd6,3px 3px 0 #00e5ff}
+.sub{color:#9ef7ff}
+.bar{height:12px;border-radius:8px;background:#1d0b44;box-shadow:inset 0 3px 6px #000}
+.bar>i{border-radius:8px;background:linear-gradient(90deg,#00e5ff,#ff2bd6);box-shadow:0 0 14px #ff2bd6}
+.tabs button,.chip,.lang button{background:#120634;color:#9ef7ff;border:2px solid #00e5ff;border-radius:10px;box-shadow:0 4px 0 #006b7a,0 0 12px #00e5ff44}
+.tabs button.on,.chip.on,.lang button.on{background:#ff2bd6;border-color:#ff2bd6;color:#fff;box-shadow:0 4px 0 #7a0f66,0 0 18px #ff2bd6aa}
+.box{background:var(--card);border:2px solid #ff2bd6aa;border-radius:16px;box-shadow:0 12px 0 #ff2bd622,0 0 24px #ff2bd633;backdrop-filter:blur(3px)}
+.warn{border-color:var(--red);border-inline-start:6px solid var(--red);box-shadow:0 0 22px #ff4d6d44}
+.tip{border-color:#00e5ffaa;border-inline-start:6px solid var(--teal);box-shadow:0 12px 0 #00e5ff1f,0 0 24px #00e5ff33}
+h2{color:#fff;text-shadow:0 0 12px #ff2bd688}
+h3{color:var(--gold);text-shadow:0 0 10px #ffd23f66}
+.row{border-top:1px solid #ff2bd633}
+.row input[type=checkbox]{accent-color:#ff2bd6}
+.row.done{background:linear-gradient(90deg,#ff2bd61a,transparent)}
+.d{color:var(--mute)}
+.tag{background:#22105a;color:#cdbaff;border-radius:6px}
+.tag.g{background:#3a2a00;color:var(--gold)}.tag.p{background:#04384a;color:#9ef7ff}
+.code{color:var(--gold);background:#0b0221;border:1px dashed var(--gold);box-shadow:0 0 10px #ffd23f44}
+.tools input[type=search],.tools select,.vq,.mh input,.gsw input,.mc textarea{background:#12063a!important;color:#fff!important;border:2px solid #00e5ff88!important;border-radius:10px!important}
+.stat{background:#160841ee;border:2px solid #ff2bd6;border-radius:14px;box-shadow:0 10px 0 #ff2bd633,0 0 18px #ff2bd644;transition:transform .2s}
+.grid .stat:nth-child(3n+2){border-color:#00e5ff;box-shadow:0 10px 0 #00e5ff33,0 0 18px #00e5ff44}
+.grid .stat:nth-child(3n){border-color:#ffd23f;box-shadow:0 10px 0 #ffd23f33,0 0 18px #ffd23f44}
+.grid{perspective:900px}
+.stat .n{color:#fff;font-weight:900;text-shadow:0 0 10px #ff2bd6}
+.setbar{background:#1d0b44;border-radius:5px}.setbar>i{background:linear-gradient(90deg,#00e5ff,#ff2bd6)}
+details>summary::before{color:var(--pink)}
+details.sub{background:#12063acc;border:1px solid #ff2bd655;border-radius:12px}details.sub[open]>summary{border-bottom:1px solid #ff2bd655}
+.nav{background:#0b0221e6;border:2px solid #ff2bd6;box-shadow:0 0 30px #ff2bd666;backdrop-filter:blur(8px)}
+.nav button{color:#9ef7ff}
+.nav button.on{color:#fff;background:#ff2bd6;box-shadow:0 0 18px #ff2bd6aa}
+.sheet .sc{background:#0f0530;border-top:2px solid #ff2bd6}
+.sheet .sc button{background:#160841;border:1px solid #ff2bd666;color:#f6e8ff}
+.sheet .sc button.on{background:#ff2bd6;color:#fff;border-color:#ff2bd6}
+.mc{background:#0f0530;border:2px solid #ff2bd6;box-shadow:0 0 40px #ff2bd655}
+.sres .hit,.hrow{background:#160841;border-color:#ff2bd644}.sres .hit small{color:#9ef7ff}
+.gres{background:#0f0530;border-color:#ff2bd6}
+.gmwrap{border:2px solid #ff2bd6;box-shadow:0 0 30px #ff2bd655}
+.thumb img{border-color:#ff2bd666}
+@keyframes fl{0%,40%{background:#ff2bd655}100%{background:transparent}}
+:focus-visible{outline:2px solid #00e5ff;outline-offset:2px}
+footer{color:var(--mute)}
+#vis{color:var(--gold)}
+@media (prefers-reduced-motion:reduce){.stat{transition:none}}
 </style>
 </head>
 <body>
@@ -820,7 +876,7 @@ function syncAll(){syncMap();var ch=0;Object.keys(GID2K).forEach(function(g){var
 function setK(k,v,noLog){var was=!!st.s[k];if(!noLog&&was!==!!v)hLog({k:k,v:v?1:0});if(v)st.s[k]=1;else delete st.s[k];sibs(k).forEach(function(x){if(v)st.s[x]=1;else delete st.s[x]});st.t=Date.now();try{localStorage.setItem(SKEY,JSON.stringify(st))}catch(e){}schedulePub();renderHead();}
 function buildDoc(){
   var json=JSON.stringify(st).replace(/</g,"\\u003c");
-  var head='<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>'+esc(document.title)+'</title>\n<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;800&family=Overpass+Mono:wght@600&family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap">\n'+document.getElementById("style").outerHTML+'\n';
+  var head='<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>'+esc(document.title)+'</title>\n<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;800&family=Overpass+Mono:wght@600&family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=Monoton&family=Tajawal:wght@400;700;900&display=swap">\n'+document.getElementById("style").outerHTML+'\n';
   return "<!DOCTYPE html>\n<html lang=\"en\">\n<head>"+head+"</head>\n<body>\n<div id=\"app\"></div>\n<script type=\"application/json\" id=\"state\">"+json+"<\/script>\n<script id=\"main\">"+document.getElementById("main").textContent+"<\/script>\n</body>\n</html>";
 }
 function schedulePub(){if(!ART)return;clearTimeout(pubTimer);syncMsg="Saving…";renderSync();pubTimer=setTimeout(function(){
