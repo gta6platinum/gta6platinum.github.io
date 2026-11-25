@@ -10,7 +10,7 @@ rep('syncMsg="Saved on this device"','syncMsg="Your progress is saved in this br
 rep('if(window.claude&&window.claude.use){window.claude.use("artifact")','if(false&&window.claude&&window.claude.use){window.claude.use("artifact")')
 rep('var DEFCHAP="2";','var DEFCHAP="";')
 rep('["near","📍 Where am I"],','')
-s=s.replace('MOBT=["ch2","near","cards","full"];','MOBT=["ch2","cards","trophy","full"];')
+s=s.replace('MOBT=["ch2","gmap","near","full"];','MOBT=["ch2","gmap","cards","full"];')
 rep('try{CHAP=localStorage.getItem("gta6chap")','try{CHAP=localStorage.getItem("gta6chap_pub")')
 rep('try{localStorage.setItem("gta6chap",CHAP)','try{localStorage.setItem("gta6chap_pub",CHAP)')
 rep("🗺️ opens the exact pin on GTABase.</footer>","🗺️ opens the exact pin on GTABase.<br>Map pins & the full checklist link to <a target=\"_blank\" rel=\"noopener\" href=\"https://www.gtabase.com/gta-6/map/\">GTABase.com</a> — go show them some love.<br>© 2026 Moe — GTA Guide to Platinum (our code, text & design). Map data © GTABase.com; videos © their creators. Official site & donation addresses: <a href=\"https://gta6platinum.github.io/\">gta6platinum.github.io</a>. Fan-made, not affiliated with Rockstar Games or GTABase.</footer>")
