@@ -1221,7 +1221,7 @@ function gmInit(){var el=document.getElementById("gmap");if(!el)return;gmLoad(fu
  if(GM.map){try{GM.map.remove()}catch(e){}}
  var CRS=L.extend({},L.CRS.Simple,{transformation:new L.Transformation(1,0,1,0)});
  var m=L.map(el,{crs:CRS,minZoom:0,maxZoom:8,zoomSnap:0.5,attributionControl:true,preferCanvas:true,maxBounds:[[100,100],[924,924]],maxBoundsViscosity:0.6});GM.map=m;
- (GMPUB?L.tileLayer:gmSheetLayer())(GMBASE+"tiles/{z}/{z},{y},{x}.webp",{tileSize:256,maxNativeZoom:6,maxZoom:8,minZoom:0,noWrap:true,bounds:[[0,0],[1024,1024]],attribution:'<a href="https://map.gtadb.org" target="_blank" rel="noopener">gtadb.org</a> (CC BY 4.0) · <a href="https://github.com/fbritoferreira/gta6" target="_blank" rel="noopener">Open GTA 6 Map</a> (CC BY 4.0)'}).addTo(m);
+ (GMPUB?L.tileLayer:gmSheetLayer())(GMBASE+"tiles/{z}/{z},{y},{x}.webp",{tileSize:256,maxNativeZoom:GMPUB?6:5,maxZoom:8,minZoom:0,noWrap:true,bounds:[[0,0],[1024,1024]],attribution:'<a href="https://map.gtadb.org" target="_blank" rel="noopener">gtadb.org</a> (CC BY 4.0) · <a href="https://github.com/fbritoferreira/gta6" target="_blank" rel="noopener">Open GTA 6 Map</a> (CC BY 4.0)'}).addTo(m);
  var v=null;try{v=JSON.parse(localStorage.getItem("gta6gmv")||"null")}catch(e){}
  if(v)m.setView([v[0],v[1]],v[2]);else m.fitBounds([[230,230],[770,600]]);
  m.on("moveend",function(){var c=m.getCenter();try{localStorage.setItem("gta6gmv",JSON.stringify([c.lat,c.lng,m.getZoom()]))}catch(e){}});
