@@ -12,17 +12,19 @@ rep('var DEFCHAP="2";','var DEFCHAP="";')
 s=s.replace('MOBT=["ch2","gmap","more","full"];','MOBT=["ch2","gmap","cards","full"];')
 rep('try{CHAP=localStorage.getItem("gta6chap")','try{CHAP=localStorage.getItem("gta6chap_pub")')
 rep('try{localStorage.setItem("gta6chap",CHAP)','try{localStorage.setItem("gta6chap_pub",CHAP)')
-rep("📍 opens the exact pin on the map.</footer>","📍 opens the exact pin on the map.<br>© 2026 Moe — GTA Guide to Platinum (our code, text & design). Map data © GTABase.com; videos © their creators. Official site & donation addresses: <a href=\"https://gta6platinum.github.io/\">gta6platinum.github.io</a>. Fan-made, not affiliated with Rockstar Games or GTABase.</footer>")
-d=open('tools/donate.html').read()
-i=s.rindex('</body>')
-s=s[:i]+d+s[i:]
+rep("© GTABase.com.</footer>","© GTABase.com.<br>© 2026 Moe — GTA Guide to Platinum (our code, text & design). Videos © their creators. Official site: <a href=\"https://gta6platinum.github.io/\">gta6platinum.github.io</a></footer>")
+DONATE=False  # donation button hidden (Nov 2026) — set True to bring it back
+if DONATE:
+    d=open('tools/donate.html').read()
+    i=s.rindex('</body>')
+    s=s[:i]+d+s[i:]
 open('index.html','w').write(s)
 # --- footer translations (public-only strings) ---
 import json
 s=open('index.html').read()
 FT={"Map pins & the full checklist link to ":("دبابيس الخريطة والقائمة الكاملة مربوطة بموقع ","Los pines del mapa y la lista completa enlazan a "),
 " — go show them some love.":(" — ادعموهم بزيارة."," — pásate a darles apoyo."),
-"© 2026 Moe — GTA Guide to Platinum (our code, text & design). Map data © GTABase.com; videos © their creators. Official site & donation addresses: ":("© 2026 Moe — GTA Guide to Platinum (الكود والنصوص والتصميم لنا). بيانات الخريطة © GTABase.com؛ الفيديوهات © لأصحابها. الموقع الرسمي وعناوين التبرع: ","© 2026 Moe — GTA Guide to Platinum (nuestro código, textos y diseño). Datos del mapa © GTABase.com; videos © sus creadores. Sitio oficial y direcciones de donación: "),
+"© 2026 Moe — GTA Guide to Platinum (our code, text & design). Videos © their creators. Official site: ":("© 2026 Moe — GTA Guide to Platinum (الكود والنصوص والتصميم لنا). الفيديوهات © لأصحابها. الموقع الرسمي: ","© 2026 Moe — GTA Guide to Platinum (nuestro código, textos y diseño). Videos © sus creadores. Sitio oficial: "),
 ". Fan-made, not affiliated with Rockstar Games or GTABase.":(". دليل من صنع معجب، غير تابع لـ Rockstar Games ولا GTABase.",". Hecho por fans, sin relación con Rockstar Games ni GTABase.")}
 i=s.index('var DT=')+7;j=s.index(';\nfunction T(',i);DT=json.loads(s[i:j])
 for k,(a,e) in FT.items():
