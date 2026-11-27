@@ -48,4 +48,13 @@ import subprocess,sys
 subprocess.run([sys.executable,'tools/make_seo.py'],check=True,stdout=subprocess.DEVNULL)
 G=[("meteorites","Meteorites"),("collectible-cards","Cards"),("luxury-watches","Luxury watches"),("unique-weapons","Unique weapons"),("hidden-packages","Hidden packages"),("waink","WAiNK"),("missables","Missables"),("trophies","Trophies"),("story-missions","Story missions"),("standout-vehicles","Standout vehicles"),("garages","Garages"),("basketball-hoops","Basketball hoops"),("guides","All guides"),("ar/guides","📚 أدلة بالعربي")]
 nav='<nav id="seoGuides" style="max-width:860px;margin:0 auto;padding:8px 16px 120px;font:14px/1.9 Overpass,system-ui,sans-serif;color:#8b98a5">📚 GTA 6 location guides: '+' · '.join('<a style="color:#f2a93b" href="/%s/">%s</a>'%(a,b) for a,b in G)+'</nav>'
+# every guide page (EN + AR) linked straight from the home page so Google finds them all
+import re as _re
+_sm=[u.split('gta6platinum.github.io/')[1] for u in _re.findall(r'<loc>([^<]*)</loc>',open('sitemap.xml').read())]
+_have={a+'/' for a,_ in G}
+_extra=[p for p in _sm if p and p not in _have]
+def _lab(p):
+    t=p.strip('/').split('/')[-1].replace('-',' ').capitalize()
+    return (t+' (عربي)') if p.startswith('ar/') else t
+nav=nav.replace('</nav>','<br>More: '+' · '.join('<a style="color:#8b98a5" href="/%s">%s</a>'%(p,_lab(p)) for p in _extra)+'</nav>')
 s=open('index.html').read();i=s.rindex('</body>');s=s[:i]+nav+'\n'+s[i:];open('index.html','w').write(s)
