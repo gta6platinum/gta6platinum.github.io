@@ -12,7 +12,7 @@ rep('var DEFCHAP="2";','var DEFCHAP="";')
 s=s.replace('MOBT=["ch2","gmap","more","full"];','MOBT=["ch2","gmap","cards","full"];')
 rep('try{CHAP=localStorage.getItem("gta6chap")','try{CHAP=localStorage.getItem("gta6chap_pub")')
 rep('try{localStorage.setItem("gta6chap",CHAP)','try{localStorage.setItem("gta6chap_pub",CHAP)')
-rep("© GTABase.com.</footer>","© GTABase.com.<br>© 2026 Moe — GTA Guide to Platinum (our code, text & design). Videos © their creators. Official site: <a href=\"https://gta6platinum.github.io/\">gta6platinum.github.io</a></footer>")
+rep("no email needed</a></footer>","no email needed</a><br>© 2026 Moe — GTA Guide to Platinum (our code, text & design). Videos © their creators. Official site: <a href=\"https://gta6platinum.github.io/\">gta6platinum.github.io</a></footer>")
 DONATE=False  # donation button hidden (Nov 2026) — set True to bring it back
 if DONATE:
     d=open('tools/donate.html').read()
