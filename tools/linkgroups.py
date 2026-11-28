@@ -166,7 +166,26 @@ C=collections.defaultdict(list)
 for k in list(par): C[f(k)].append(k)
 groups=sorted(sorted(v) for v in C.values() if len(v)>1)
 line='var LINKS='+json.dumps(groups,separators=(',',':'))+';'
-if 'var LINKS=' in s: s=re.sub(r'var LINKS=\[.*?\];\n',lambda m:line+'\n',s,count=1)
+# distinct spots per group (pins closer than ~80 m are the same spot), in checklist order
+import math
+PIN=json.load(open(os.path.join(D,'..','map','pins.json')))
+ORD={};n0=0
+for g in F:
+  for sec,items in g[1]:
+    for it in items: ORD['z'+it[0]]=n0;n0+=1
+SP={}
+for gi,grp in enumerate(groups):
+  kept=[]
+  for k in sorted(grp,key=lambda k:(0 if k.startswith('z') else 1,ORD.get(k,1e9))):
+    pp=PIN.get(k)
+    if not pp: continue
+    if any(math.dist(pp[:2],PIN[x][:2])<2.5 for x in kept): continue
+    kept.append(k)
+  kept.sort(key=lambda k:ORD.get(k,1e9))
+  if len(kept)>1: SP[gi]=kept
+line+='\nvar SPOTS='+json.dumps(SP,separators=(',',':'))+';'
+
+if 'var LINKS=' in s: s=re.sub(r'var LINKS=\[.*?\];\n(var SPOTS=\{.*?\};\n)?',lambda m:line+'\n',s,count=1)
 else: s=s.replace('var PINGID=',line+'\nvar PINGID=',1)
 open(p,'w').write(s)
 if __name__=='__main__':
