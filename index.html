@@ -262,7 +262,7 @@ footer{color:var(--mute)}
 .thumb img{cursor:zoom-in}
 
 .gmpc,.gmpin span,.gmdot{color:#111!important}
-.lsti{display:flex;align-items:center;gap:6px;width:100%;text-align:start;position:relative;overflow:hidden;margin:4px 0;padding:9px 10px;border-radius:10px;border:1px solid #3a2a55;background:#1c1230;color:inherit;font:inherit;cursor:pointer}.lsti:hover{border-color:#ff5fd2}.lsti .lsn{flex:1;min-width:0}.lsti .tag{flex:none}.lsti i{position:absolute;left:0;bottom:0;height:3px;background:#ff5fd2;opacity:.8}.lsti.lsub{margin-inline-start:18px;width:calc(100% - 18px);padding:6px 10px;font-size:.92em;background:#160e26}.lstg h2{margin-top:0}</style>
+.lsti{display:flex;align-items:center;gap:6px;width:100%;text-align:start;position:relative;overflow:hidden;margin:4px 0;padding:9px 10px;border-radius:10px;border:1px solid #3a2a55;background:#1c1230;color:inherit;font:inherit;cursor:pointer}.lsti:hover{border-color:#ff5fd2}.lsti .lsn{flex:1;min-width:0}.lsti .tag{flex:none}.lsti i{position:absolute;left:0;bottom:0;height:3px;background:#ff5fd2;opacity:.8}.lsti.lsub{margin-inline-start:18px;width:calc(100% - 18px);padding:6px 10px;font-size:.92em;background:#160e26}.lstg h2{margin-top:0}.lq{margin-top:8px;width:100%;box-sizing:border-box;padding:9px 12px;border-radius:10px;border:1px solid #3a2a55;background:#120a20;color:inherit;font:inherit}</style>
 </head>
 <body>
 <div id="app"></div>
@@ -1208,8 +1208,8 @@ function vGarage(){
   return h+'</div>';
 }
 function vLists(){var V={ch2:vCh2,cards:vCards,wink:vWink,med:vMed,trophy:vTrophy,weap:vWeap,cars:vCars,garage:vGarage,more:vMore,full:vFull,codes:vCodes,sum:vSum},tmp=document.createElement("div"),sv=filt.hide;filt.hide=false;
- var h='<div class="box tip"><div class="d">'+esc(T("Every list on the site in one place. Tap one to jump straight to it."))+'</div><input id="lq" type="search" autocomplete="off" placeholder="'+esc(T("PH:Filter lists…"))+'" style="margin-top:8px;width:100%"></div>';
- TABS.forEach(function(tb){var t=tb[0];if(!V[t])return;var html;try{html=V[t]()}catch(e){return}tmp.innerHTML=html;var ds=tmp.querySelectorAll("details[data-g]");if(!ds.length){var pf={trophy:"t",med:"m",weap:"g",ch2:"h"}[t];if(!pf)return;var cc=cnt(pf);h+='<div class="box lstg"><button class="lsti" data-lgo="'+esc(t)+'" data-lid=""><span class="lsn">'+esc(T(tb[1]))+'</span><span class="tag">'+cc[0]+' / '+cc[1]+'</span><i style="width:'+(cc[1]?Math.round(100*cc[0]/cc[1]):0)+'%"></i></button></div>';return}
+ var h='<div class="box tip"><div class="d">'+esc(T("Every list on the site in one place. Tap one to jump straight to it."))+'</div><input id="lq" type="search" autocomplete="off" placeholder="Filter lists…" class="lq"></div>';
+ TABS.forEach(function(tb){var t=tb[0];if(!V[t])return;var html;try{html=V[t]()}catch(e){return}tmp.innerHTML=html;var ds=tmp.querySelectorAll("details[data-g]");if(!ds.length){var pf={trophy:"t",med:"m",weap:"g"}[t];if(!pf)return;var cc=cnt(pf);h+='<div class="box lstg"><button class="lsti" data-lgo="'+esc(t)+'" data-lid=""><span class="lsn">'+esc(T(tb[1]))+'</span><span class="tag">'+cc[0]+' / '+cc[1]+'</span><i style="width:'+(cc[1]?Math.round(100*cc[0]/cc[1]):0)+'%"></i></button></div>';return}
   h+='<div class="box lstg"><h2>'+esc(T(tb[1]))+'</h2>';
   ds.forEach(function(d){var sm=d.querySelector("summary");if(!sm)return;var sub=d.classList.contains("sub"),par=sub&&d.parentElement&&d.parentElement.closest("details[data-g]"),c=sm.cloneNode(true),tg=c.querySelector(".tag"),tt=tg?tg.textContent:"";if(tg)tg.remove();c.querySelectorAll("details").forEach(function(x){x.remove()});
    var m=/(\d+)\s*\/\s*(\d+)/.exec(tt),pc=m&&+m[2]?Math.round(100*m[1]/m[2]):0;
