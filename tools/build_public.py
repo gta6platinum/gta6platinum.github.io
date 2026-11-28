@@ -1,4 +1,5 @@
 import re
+exec(open(__import__("os").path.join(__import__("os").path.dirname(__import__("os").path.abspath(__file__)),"sync_pink.py")).read())
 s=open('tools/master.html').read()
 s=re.sub(r'<script type="application/json" id="state">.*?</script>','<script type="application/json" id="state">{"t":0,"s":{}}</script>',s,count=1,flags=re.S)
 def rep(o,n):
