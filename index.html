@@ -1347,7 +1347,9 @@ function gmSpread(z,R){var m=GM.map,V=GM.vis,n=V.length,i;for(i=0;i<n;i++)GM.G[V
  Object.keys(C).forEach(function(r){var L2=C[r],c=L2.length;if(c<2)return;L2.sort(function(a,b){return V[a]<V[b]?-1:1});var cx=0,cy=0;L2.forEach(function(j){cx+=P[j].x;cy+=P[j].y});cx/=c;cy/=c;var pos=[];
   if(c<=6){var rr=Math.max(d/2,d/(2*Math.sin(Math.PI/c)));for(var k=0;k<c;k++){var a=-Math.PI/2+2*Math.PI*k/c;pos.push([cx+rr*Math.cos(a),cy+rr*Math.sin(a)])}}
   else{pos.push([cx,cy]);var ring=1;while(pos.length<c){var cap=6*ring,left=Math.min(cap,c-pos.length);for(var k2=0;k2<left;k2++){var a2=-Math.PI/2+2*Math.PI*k2/left+(ring%2?0:Math.PI/left);pos.push([cx+ring*d*Math.cos(a2),cy+ring*d*Math.sin(a2)])}ring++}}
-  L2.forEach(function(j,k){var ll=m.unproject(L.point(pos[k][0],pos[k][1]),z);GM.G[V[j]].ll=[ll.lat,ll.lng]})})}
+  L2.forEach(function(j,k){P[j]={x:pos[k][0],y:pos[k][1],m:1}})});
+ for(var it=0;it<6;it++){var H2={},mv=0;for(i=0;i<n;i++){var q2=P[i],gx=Math.floor(q2.x/d),gy=Math.floor(q2.y/d);for(var bx=-1;bx<=1;bx++)for(var by=-1;by<=1;by++){var bb=H2[(gx+bx)+","+(gy+by)];if(bb)bb.forEach(function(j){var o=P[j],dx=q2.x-o.x,dy=q2.y-o.y,dd=Math.sqrt(dx*dx+dy*dy);if(dd<d-.5){if(dd<.01){dx=1;dy=0;dd=1}var push=(d-dd)/2+.5;q2.x+=dx/dd*push;q2.y+=dy/dd*push;o.x-=dx/dd*push;o.y-=dy/dd*push;q2.m=o.m=1;mv++}})}(H2[gx+","+gy]=H2[gx+","+gy]||[]).push(i)}if(!mv)break}
+ for(i=0;i<n;i++)if(P[i].m){var ll=m.unproject(L.point(P[i].x,P[i].y),z);GM.G[V[i]].ll=[ll.lat,ll.lng]}}
 function gmLayer(){var m=GM.map;if(!m||!GM.vis)return;var z=m.getZoom(),R=gmRad(z),zk=R>=14?z:R;if(GM.lay&&GM.layZ===zk&&GM.layV===GM.vis)return;if(GM.lay)m.removeLayer(GM.lay);gmSpread(z,R);
  if(!GM.cv)GM.cv=L.canvas({padding:.6,tolerance:6});var Mk=gmMk(),lay=L.layerGroup();
  GM.vis.forEach(function(g){var G=GM.G[g];new Mk(G.ll||[G.y,G.x],{renderer:GM.cv,radius:R,col:gmCol(G.ic),ic:G.ic,done:gmDone(G),bubblingMouseEvents:false}).on("click",function(){if(m.getZoom()<2.5){m.flyTo([G.y,G.x],4.5,{duration:.7});setTimeout(function(){gmOpen(g)},800)}else gmOpen(g)}).addTo(lay)});
