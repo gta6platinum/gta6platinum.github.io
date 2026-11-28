@@ -55,7 +55,7 @@ for g in F:
     if sec=='Book Swaps': continue
     for it in items:
       n=nmag(it[1])
-      if n and not re.match(r'^(styling magazine|tattoo magazine)$',n) and not n.startswith('styling magazine lucia') and not re.search(r'rack|magazines|magazine behind|comics ',it[1].lower()): by['m|'+n].append('z'+it[0])
+      if n and not re.match(r'^(styling magazine|tattoo magazine)$',n) and not re.search(r'rack|magazines|magazine behind|comics ',it[1].lower()): by['m|'+n].append('z'+it[0])
 for i,m in enumerate(MAGS): by['m|'+nmag(m[0])].append('b%d'%i)
 for k in title:
   c=cid(k)
@@ -103,6 +103,63 @@ for k,g in SYNCX.items():
   for z in G2K.get(g,[]): u(k,z,'syncx')
 for k,g in PINK.items():
   if isinstance(g,str) and k[0]!='p': link(k,g,'pin')
+
+# 4) same thing listed in two tabs, matched by unique name
+XDD=J('var XD=');CH2=J('var CH2=')
+def nn(t):
+  t=(t or '').lower().replace('’',"'");t=re.sub(r'\(.*?\)','',t);t=re.sub(r'^(card|book|magazine|comic):\s*','',t)
+  t=re.sub(r'⚠️.*$','',t);t=re.sub(r'[^a-z0-9ê ]+',' ',t);return re.sub(r'\s+',' ',t).strip()
+def zin(pred):
+  return [k for k,t in title.items() if k.startswith('z') and pred(t)]
+def match(src,tgt,why):
+  tg=collections.defaultdict(set)
+  for k in tgt: tg[nn(title[k][2] if k in title else OT.get(k,''))].add(k)
+  for k,name in src:
+    c=tg.get(nn(name))
+    if not c: continue
+    roots={f(x) for x in c}
+    if len(roots)==1 or len(c)<=1:
+      for x in c: u(k,x,why)
+smash=zin(lambda t:"smash" in t[1].lower())
+match([('j%d'%i,x[1]) for i,x in enumerate(XDD['ROB'])],smash,'rob')
+match([('s%d'%i,x[0]) for i,x in enumerate(XDD['WRECK'])],zin(lambda t:'underwater' in t[1].lower()),'wreck')
+uw=zin(lambda t:'unique weapon' in t[0].lower())
+match([('g%d'%i,OT['g%d'%i]) for i in range(len(J('var WEAP=')))],uw,'weap')
+byn=collections.defaultdict(list)
+for k in uw: byn[nn(title[k][2])].append(k)
+for L2 in byn.values():
+  for k in L2[1:]: u(L2[0],k,'weap-name')
+wl=zin(lambda t:'waink' in t[0].lower() and 'landmark' in t[1].lower())
+byn=collections.defaultdict(list)
+for k in wl: byn[nn(title[k][2])].append(k)
+for L2 in byn.values():
+  for k in L2[1:]: u(L2[0],k,'waink-name')
+veh=zin(lambda t:"randy" in t[2].lower() or "moses" in t[2].lower())
+cars=[('v%d'%i,OT['v%d'%i]) for i in range(len(J('var CARS=')))]
+rk=[('r%d'%i,OT['r%d'%i]) for i in range(len(XDD['RANDY']))]
+match(cars,[k for k,_ in rk],'cars-randy')
+def nveh(t): return nn(re.sub(r"\(randy's list\)|\(moses'? ?(request)?\)",'',t.lower()))
+tv=collections.defaultdict(set)
+for k in veh: tv[nveh(title[k][2])].add(k)
+for k,n in rk+[('o%d'%i,OT['o%d'%i]) for i in range(len(XDD['MOSES']))]:
+  for x in tv.get(nveh(n),()): u(k,x,'veh')
+# Chapter 2 to-dos that are a card or a magazine
+cardz=[k for k in title if cid(k)]
+for i,x in enumerate(CH2):
+  m=re.match(r'^(card|book|magazine):\s*(.*)$',x[0].strip(),re.I)
+  if not m: continue
+  nm=nn(m.group(2))
+  if m.group(1).lower()=='card': c=[k for k in cardz if cid(k)[1]==nm]
+  else: c=[k for k,t in title.items() if 'Magazine' in t[0] and nmag(t[2])==nmag(m.group(2))]
+  if c and len({f(k) for k in c})==1: u('h%d'%i,c[0],'ch2')
+# cards written without a colour join the only colour that card has
+byc=collections.defaultdict(list)
+for k in cardz: byc[cid(k)[:2]].append(k)
+for key,L2 in byc.items():
+  cols={cid(k)[2] for k in L2 if cid(k)[2]}
+  if len(cols)<=1:
+    for k in L2[1:]: u(L2[0],k,'card-nocolour')
+
 # hand-checked pairs the name test misses
 for a,b in [('g10','zweapon-spawn-014')]: u(a,b,'manual')
 C=collections.defaultdict(list)
