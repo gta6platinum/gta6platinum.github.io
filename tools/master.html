@@ -1330,7 +1330,7 @@ function gmDraw(){var m=GM.map;if(!m)return;var order=gmGroups(),cnt={},dn={},to
  gmLayer();
  if(GM.focus){var fg=GM.focus;GM.focus=null;var G=GM.G[fg];if(!G){var kk=Object.keys(GM.pins).filter(function(k){return GM.pins[k][2]===fg||k===fg})[0];G=kk&&GM.G[GM.pins[kk][2]||kk]}
   if(G){var re=false;if(GM.f[G.ic]===false){GM.f[G.ic]=true;re=true}if(GM.hide&&gmDone(G)){GM.hide=false;re=true;var hb=document.getElementById("gmhide");if(hb)hb.checked=false}m.setView([G.y,G.x],6);if(re)gmDraw();setTimeout(function(){gmOpen(G.id)},350)}}}
-function gmOpen(g){var G=GM.G[g];if(!G||!GM.map)return;L.popup({maxWidth:300,offset:[0,-8],autoPanPaddingTopLeft:[60,120]}).setLatLng([G.y,G.x]).setContent(gmPop(g)).openOn(GM.map);GM.open=g}
+function gmOpen(g){var G=GM.G[g];if(!G||!GM.map)return;L.popup({maxWidth:300,offset:[0,-8],autoPanPaddingTopLeft:[60,120]}).setLatLng(G.ll||[G.y,G.x]).setContent(gmPop(g)).openOn(GM.map);GM.open=g}
 var GMP={};
 function gmPaths(ic){if(GMP.hasOwnProperty(ic))return GMP[ic];var raw=GMSVG[ic],out=null;if(raw&&window.Path2D){out=[];var tmp=document.createElement("div");tmp.innerHTML=raw;tmp.querySelectorAll("path,circle,rect,line,polyline").forEach(function(e){var a=function(n){return parseFloat(e.getAttribute(n)||0)},P=new Path2D(),t=e.tagName.toLowerCase(),f=(e.getAttribute("fill")||"none")!=="none";
  if(t==="path")P=new Path2D(e.getAttribute("d"));else if(t==="circle")P.arc(a("cx"),a("cy"),a("r"),0,6.2832);else if(t==="line"){P.moveTo(a("x1"),a("y1"));P.lineTo(a("x2"),a("y2"))}else if(t==="polyline"){var pt=(e.getAttribute("points")||"").trim().split(/[\s,]+/).map(parseFloat);for(var k=0;k+1<pt.length;k+=2){if(k)P.lineTo(pt[k],pt[k+1]);else P.moveTo(pt[k],pt[k+1])}}else if(t==="rect"){var x=a("x"),y=a("y"),w=a("width"),h=a("height"),r=Math.min(a("rx")||a("ry"),w/2,h/2);if(r&&P.roundRect)P.roundRect(x,y,w,h,r);else P.rect(x,y,w,h)}var fc=e.getAttribute("fill"),sc=e.getAttribute("stroke");out.push([P,f,(fc&&fc!=="none"&&fc!=="currentColor")?fc:null,sc&&sc!=="currentColor"?sc:null,parseFloat(e.getAttribute("stroke-width")||0)])})}GMP[ic]=out;return out}
@@ -1340,10 +1340,18 @@ function gmMk(){if(GMMk)return GMMk;GMMk=L.CircleMarker.extend({_updatePath:func
  c.shadowColor="rgba(0,0,0,.45)";c.shadowBlur=5;c.shadowOffsetY=1.5;c.beginPath();c.arc(p.x,p.y,R,0,6.2832);c.fillStyle=col;c.fill();c.shadowColor="transparent";c.shadowBlur=0;c.shadowOffsetY=0;c.lineWidth=2.4;c.strokeStyle="#fff";c.stroke();
  var ps=gmPaths(o.ic),s=R*1.15;if(ps){c.translate(p.x-s/2,p.y-s/2);c.scale(s/24,s/24);c.strokeStyle="#fff";c.fillStyle="#fff";c.lineWidth=2.4;c.lineCap="round";c.lineJoin="round";ps.forEach(function(q){c.fillStyle=q[2]||"#111";if(q[1])c.fill(q[0]);if(q[3]!=="none"){c.strokeStyle=q[3]||"#111";c.lineWidth=q[4]||2.4;c.stroke(q[0])}})}else{c.fillStyle="#fff";c.font=Math.round(R*1.1)+"px sans-serif";c.textAlign="center";c.textBaseline="middle";c.fillText(o.ic,p.x,p.y+1)}c.restore()}});return GMMk}
 function gmRad(z){return z<2.5?4.5:z<3.5?9:z<4.5?11.5:14}
-function gmLayer(){var m=GM.map;if(!m||!GM.vis)return;var z=m.getZoom(),R=gmRad(z);if(GM.lay&&GM.layR===R&&GM.layV===GM.vis)return;if(GM.lay)m.removeLayer(GM.lay);
+function gmSpread(z,R){var m=GM.map,V=GM.vis,n=V.length,i;for(i=0;i<n;i++)GM.G[V[i]].ll=null;if(R<14)return;var d=2*R+3,P=[],H={},par=[];
+ function f(a){while(par[a]!==a){par[a]=par[par[a]];a=par[a]}return a}
+ for(i=0;i<n;i++){var G=GM.G[V[i]],q=m.project([G.y,G.x],z);P.push(q);par.push(i);var kx=Math.floor(q.x/d),ky=Math.floor(q.y/d);for(var ax=-1;ax<=1;ax++)for(var ay=-1;ay<=1;ay++){var b=H[(kx+ax)+","+(ky+ay)];if(b)b.forEach(function(j){var dx=P[j].x-q.x,dy=P[j].y-q.y;if(dx*dx+dy*dy<d*d){var ra=f(i),rb=f(j);if(ra!==rb)par[ra]=rb}})}(H[kx+","+ky]=H[kx+","+ky]||[]).push(i)}
+ var C={};for(i=0;i<n;i++){var r=f(i);(C[r]=C[r]||[]).push(i)}
+ Object.keys(C).forEach(function(r){var L2=C[r],c=L2.length;if(c<2)return;L2.sort(function(a,b){return V[a]<V[b]?-1:1});var cx=0,cy=0;L2.forEach(function(j){cx+=P[j].x;cy+=P[j].y});cx/=c;cy/=c;var pos=[];
+  if(c<=6){var rr=Math.max(d/2,d/(2*Math.sin(Math.PI/c)));for(var k=0;k<c;k++){var a=-Math.PI/2+2*Math.PI*k/c;pos.push([cx+rr*Math.cos(a),cy+rr*Math.sin(a)])}}
+  else{pos.push([cx,cy]);var ring=1;while(pos.length<c){var cap=6*ring,left=Math.min(cap,c-pos.length);for(var k2=0;k2<left;k2++){var a2=-Math.PI/2+2*Math.PI*k2/left+(ring%2?0:Math.PI/left);pos.push([cx+ring*d*Math.cos(a2),cy+ring*d*Math.sin(a2)])}ring++}}
+  L2.forEach(function(j,k){var ll=m.unproject(L.point(pos[k][0],pos[k][1]),z);GM.G[V[j]].ll=[ll.lat,ll.lng]})})}
+function gmLayer(){var m=GM.map;if(!m||!GM.vis)return;var z=m.getZoom(),R=gmRad(z),zk=R>=14?z:R;if(GM.lay&&GM.layZ===zk&&GM.layV===GM.vis)return;if(GM.lay)m.removeLayer(GM.lay);gmSpread(z,R);
  if(!GM.cv)GM.cv=L.canvas({padding:.6,tolerance:6});var Mk=gmMk(),lay=L.layerGroup();
- GM.vis.forEach(function(g){var G=GM.G[g];new Mk([G.y,G.x],{renderer:GM.cv,radius:R,col:gmCol(G.ic),ic:G.ic,done:gmDone(G),bubblingMouseEvents:false}).on("click",function(){if(m.getZoom()<2.5){m.flyTo([G.y,G.x],4.5,{duration:.7});setTimeout(function(){gmOpen(g)},800)}else gmOpen(g)}).addTo(lay)});
- lay.addTo(m);GM.lay=lay;GM.layR=R;GM.layV=GM.vis}
+ GM.vis.forEach(function(g){var G=GM.G[g];new Mk(G.ll||[G.y,G.x],{renderer:GM.cv,radius:R,col:gmCol(G.ic),ic:G.ic,done:gmDone(G),bubblingMouseEvents:false}).on("click",function(){if(m.getZoom()<2.5){m.flyTo([G.y,G.x],4.5,{duration:.7});setTimeout(function(){gmOpen(g)},800)}else gmOpen(g)}).addTo(lay)});
+ lay.addTo(m);GM.lay=lay;GM.layR=R;GM.layZ=zk;GM.layV=GM.vis}
 function gmSearch(q){var box=document.getElementById("gmres");if(!box)return;q=(q||"").trim().toLowerCase();if(q.length<2){box.hidden=true;return}
  var I=gmInfo(),out=[];Object.keys(GM.pins||{}).forEach(function(k){var it=I[k];if(it&&out.length<10&&(it.t+" "+it.d).toLowerCase().indexOf(q)>=0)out.push('<button data-gmgo="'+k+'"><span class="gmpc" style="background:'+gmCol(it.ic)+'">'+gmSvg(it.ic,14)+'</span> '+esc(it.t)+'</button>')});
  (GM.lm||[]).forEach(function(l,i){if(out.length<16&&l[0].toLowerCase().indexOf(q)>=0)out.push('<button data-gmlm="'+i+'">📍 '+esc(l[0])+'</button>')});
